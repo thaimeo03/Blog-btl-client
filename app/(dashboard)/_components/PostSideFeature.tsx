@@ -6,19 +6,20 @@ import Input from '@/components/Input'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ICreatePostSchema } from '@/common/schemas/posts.schema'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { createPostApi, updatePostApi } from '@/apis/posts.api'
 import { ErrorResponse, MessageResponse } from '@/interfaces/response.interface'
 import { toast } from '@/components/ui/use-toast'
 import { getErrorFromResponse } from '@/lib/utils'
 import { uploadImageApi } from '@/apis/medias.api'
 import { ICreatePostForm, ICreatePostSuccess, IGetPostByIdSuccess, IUpdatePostForm } from '@/interfaces/posts.interface'
-import { useRouter } from 'next/navigation'
+import Spinner from '@/components/Spinner'
 
 interface PostSideFeatureProps {
   isUpdate?: boolean
   id?: string
   post?: IGetPostByIdSuccess
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 interface IPostData {
@@ -26,7 +27,9 @@ interface IPostData {
   thumbnail?: any
 }
 
-export default function PostSideFeature({ isUpdate, id, post }: PostSideFeatureProps) {
+export default function PostSideFeature({ isUpdate, id, post, setIsOpen }: PostSideFeatureProps) {
+  const queryClient = useQueryClient()
+
   // Content post
   const [content, setContent] = useState(post?.data.content || '')
 
@@ -51,7 +54,10 @@ export default function PostSideFeature({ isUpdate, id, post }: PostSideFeatureP
 
   // Create post mutation
   const createPostMutation = useMutation({
-    mutationFn: (data: ICreatePostForm) => createPostApi(data)
+    mutationFn: (data: ICreatePostForm) => createPostApi(data),
+    onError: (error: ErrorResponse) => {
+      setIsOpen(false)
+    }
   })
 
   // Update post mutation
@@ -66,7 +72,9 @@ export default function PostSideFeature({ isUpdate, id, post }: PostSideFeatureP
         ...data,
         content
       }
-      if (data.thumbnail) {
+      if (data.thumbnail[0]) {
+        console.log(data.thumbnail[0])
+
         const imageResponse = await uploadImageMutation.mutateAsync(data.thumbnail[0])
         postData.thumbnail = imageResponse.data.url
       } else {
@@ -89,8 +97,11 @@ export default function PostSideFeature({ isUpdate, id, post }: PostSideFeatureP
       toast({
         title: postResponse.message as string
       })
+      // Close dialog
+      setIsOpen(false)
+
       // Reload page
-      window.location.reload()
+      queryClient.invalidateQueries({ queryKey: ['posts'] })
     } catch (error: any | ErrorResponse) {
       toast({
         title: getErrorFromResponse(error),
@@ -102,11 +113,15 @@ export default function PostSideFeature({ isUpdate, id, post }: PostSideFeatureP
   return (
     <form onSubmit={handleSubmit(handleSubmitForm)}>
       <div>
-        <label htmlFor='title'>Title</label>
+        <label htmlFor='title' className='font-bold'>
+          Title
+        </label>
         <Input id='title' type='text' register={register('title')} errors={errors?.title} />
       </div>
       <div className='mt-5'>
-        <label htmlFor='thumbnail'>Thumbnail</label>
+        <label htmlFor='thumbnail' className='font-bold'>
+          Thumbnail
+        </label>
         <div>
           <Input
             className='block py-1 px-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400'
@@ -118,12 +133,16 @@ export default function PostSideFeature({ isUpdate, id, post }: PostSideFeatureP
         </div>
       </div>
       <div className='mt-5'>
-        <h2>Content</h2>
+        <h2 className='font-bold'>Content</h2>
         <Editor content={content} setContent={setContent} />
       </div>
       <div className='flex justify-end'>
         <Button variant='outline' className='border-emerald-500 hover:bg-emerald-500 mt-3'>
-          {isUpdate ? 'Update' : 'Create'}
+          <div className='flex items-center space-x-1'>
+            {createPostMutation.isPending ||
+              (updatePostMutation.isPending && <Spinner className='animate-spin w-4 h-4' />)}
+            <span>{isUpdate ? 'Update' : 'Create'}</span>
+          </div>
         </Button>
       </div>
     </form>

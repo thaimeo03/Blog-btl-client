@@ -29,6 +29,23 @@ export const formatDateFromISO = (date: string) => {
   return formattedDate
 }
 
+export const formatCommentDateTime = (date: string) => {
+  const dateObject = new Date(date)
+  const dateCurrent = new Date()
+
+  const dateObjectFormatted = formatDateFromISO(date)
+  const dateCurrentFormatted = formatDateFromISO(dateCurrent.toISOString())
+
+  if (dateObjectFormatted === dateCurrentFormatted) {
+    return dateObject.toLocaleTimeString('en-US', {
+      timeZone: 'UTC',
+      hour: '2-digit',
+      minute: '2-digit'
+    })
+  }
+  return dateObjectFormatted
+}
+
 export const pagesValue = (pagination: IPagination) => {
   const totalPage = pagination.total_page
   const pageNumbers: number[] = []

@@ -36,17 +36,17 @@ export interface IPostItem {
 }
 
 export interface IAllPostWithAuthor extends IPostItem {
-  user: Pick<IUser, 'id' | 'name' | 'avatar'>
+  blogger: Pick<IUser, 'id' | 'name' | 'avatar'>
 }
 
 export type IGetAllPostsSuccess = DataResponseWithPagination<IAllPostWithAuthor[]>
 
 interface IPostWithAuthor extends IPostItem {
-  user: Pick<IUser, 'id' | 'name' | 'avatar'>
+  blogger: Pick<IUser, 'id' | 'name' | 'avatar'>
 }
 
 export type IGetPostByIdSuccess = DataResponse<IPostWithAuthor>
 
 export interface IBlogInfoForAdmin extends Pick<IPostWithAuthor, 'id' | 'title' | 'status' | 'createdAt'> {
-  user: Pick<IUser, 'id' | 'name' | 'avatar'>
+  blogger: Pick<IUser, 'id' | 'name' | 'avatar'>
 }

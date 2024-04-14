@@ -39,10 +39,10 @@ export default function PostItem({ blog }: BlogItemProps) {
         </div>
         <div className='flex blog-center mt-2 pt-3 ml-4 mr-2'>
           <div className='flex-none w-10 h-10 rounded-full'>
-            <Avatar src={blog.user.avatar} />
+            <Avatar src={blog.blogger.avatar} />
           </div>
           <div className='ml-3'>
-            <span className='block text-gray-900'>{blog.user.name}</span>
+            <span className='block text-gray-900'>{blog.blogger.name}</span>
             <span className='block text-gray-400 text-sm'>{formatDateFromISO(blog.createdAt)}</span>
           </div>
         </div>

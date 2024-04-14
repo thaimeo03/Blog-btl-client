@@ -34,9 +34,9 @@ export default function PostDetail({ params }: { params: { id: string } }) {
               <div className='p-4 absolute bottom-0 left-0 z-20'>
                 <h2 className='text-4xl font-semibold text-gray-100 leading-tight'>{post.data.title}</h2>
                 <div className='flex space-x-2 mt-3'>
-                  <Avatar src={post.data.user.avatar} />
+                  <Avatar src={post.data.blogger.avatar} />
                   <div>
-                    <p className='font-semibold text-gray-200 text-sm'> {post.data.user.name} </p>
+                    <p className='font-semibold text-gray-200 text-sm'> {post.data.blogger.name} </p>
                     <p className='font-semibold text-gray-400 text-xs'> {formatDateFromISO(post.data.updatedAt)} </p>
                   </div>
                 </div>
