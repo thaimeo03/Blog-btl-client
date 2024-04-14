@@ -1,7 +1,7 @@
 'use client'
 
 import LoadingPage from '@/components/LoadingPage'
-import { PATH_ROUTER } from '@/constants/route.constant'
+import { PATH_ROUTER } from '@/common/constants/route.constant'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 

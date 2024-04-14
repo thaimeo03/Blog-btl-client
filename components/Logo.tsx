@@ -3,8 +3,8 @@ import { useRouter } from 'next/navigation'
 import { useContext } from 'react'
 import { FilterContext, FilterContextType } from './FilterContextProvider'
 import { IPostFilter } from '@/interfaces/posts.interface'
-import { postFiltersInitialValue } from '@/constants/defaultValues.constant'
-import { PATH_ROUTER } from '@/constants/route.constant'
+import { postFiltersInitialValue } from '@/common/constants/defaultValues.constant'
+import { PATH_ROUTER } from '@/common/constants/route.constant'
 
 export default function Logo() {
   const router = useRouter()

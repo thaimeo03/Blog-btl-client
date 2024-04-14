@@ -4,6 +4,7 @@ import { AuthContext, AuthContextType } from '@/app/(auth)/_components/AuthConte
 import { useContext } from 'react'
 import { Button } from './ui/button'
 import { useRouter } from 'next/navigation'
+import { ROLE } from '@/common/constants/role.constant'
 
 export default function AdminRouter() {
   const router = useRouter()
@@ -13,7 +14,7 @@ export default function AdminRouter() {
     router.push('/admin')
   }
 
-  return auth.profile.role === 'ADMIN' ? (
+  return auth.profile.role === ROLE.ADMIN ? (
     <Button className='grid place-items-center' onClick={handleClick}>
       Admin page
     </Button>

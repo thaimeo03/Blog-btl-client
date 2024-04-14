@@ -1,5 +1,5 @@
 import Avatar from '@/components/Avatar'
-import { PATH_ROUTER } from '@/constants/route.constant'
+import { PATH_ROUTER } from '@/common/constants/route.constant'
 import { IAllPostWithAuthor } from '@/interfaces/posts.interface'
 import { formatDateFromISO } from '@/lib/utils'
 import Link from 'next/link'

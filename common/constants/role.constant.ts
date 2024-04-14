@@ -1,6 +1,6 @@
 export enum ROLE {
-  USER = 'USER',
-  ADMIN = 'ADMIN',
+  USER = 'BLOGGER',
+  ADMIN = 'BLOG_ADMIN',
   BANNED = 'BANNED'
 }
 

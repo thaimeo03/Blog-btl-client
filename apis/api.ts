@@ -19,7 +19,7 @@ class Api {
     try {
       const refresh_token = localStorage.getItem('refresh_token')
       if (!refresh_token) throw new Error('No refresh token')
-      const response = await axios.post<IRefreshTokenSuccess>(`${URL}/users/refresh-token`, {
+      const response = await axios.post<IRefreshTokenSuccess>(`${URL}/auth/refresh-token`, {
         refresh_token
       })
 

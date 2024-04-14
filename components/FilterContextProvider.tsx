@@ -1,5 +1,5 @@
 'use client'
-import { postFiltersInitialValue } from '@/constants/defaultValues.constant'
+import { postFiltersInitialValue } from '@/common/constants/defaultValues.constant'
 import { IPostFilter } from '@/interfaces/posts.interface'
 import { convertObjToQueryString } from '@/lib/utils'
 import { createContext, useMemo, useState } from 'react'

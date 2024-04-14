@@ -1,7 +1,7 @@
 'use client'
 import { logoutApi } from '@/apis/users.api'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { PATH_ROUTER } from '@/constants/route.constant'
+import { PATH_ROUTER } from '@/common/constants/route.constant'
 import { ErrorResponse } from '@/interfaces/response.interface'
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'

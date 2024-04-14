@@ -1,5 +1,5 @@
 import { ROLE } from '@/common/constants/role.constant'
-import { DataResponse } from './response.interface'
+import { DataResponse, DataResponseWithPagination } from './response.interface'
 
 export interface IRegisterForm {
   name: string
@@ -43,7 +43,15 @@ export type IRefreshTokenSuccess = DataResponse<{
 }>
 
 export type IProfileUser = DataResponse<{
-  user: IUser
+  blogger: IUser
 }>
 
 export interface IUserInfoForAdmin extends Pick<IUser, 'id' | 'name' | 'email' | 'role'> {}
+
+export type IUserInfoForAdminResponse = DataResponseWithPagination<IUserInfoForAdmin[]>
+
+export interface IBloggerFilter {
+  limit: number
+  page: number
+  searchNameTerm?: string
+}

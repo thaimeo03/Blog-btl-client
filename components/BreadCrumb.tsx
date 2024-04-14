@@ -1,4 +1,4 @@
-import { PATH_ROUTER } from '@/constants/route.constant'
+import { PATH_ROUTER } from '@/common/constants/route.constant'
 import Link from 'next/link'
 
 interface BreadCrumbProps {

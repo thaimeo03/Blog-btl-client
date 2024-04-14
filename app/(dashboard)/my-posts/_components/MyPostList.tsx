@@ -8,7 +8,7 @@ import PostItem from '../../_components/PostItem'
 import Pagination from '@/components/Pagination'
 import CardWithConfig from '@/components/CardWithConfig'
 import BreadCrumb from '@/components/BreadCrumb'
-import { PATH_ROUTER } from '@/constants/route.constant'
+import { PATH_ROUTER } from '@/common/constants/route.constant'
 import PopoverPostConfig from './PopoverPostConfig'
 
 export default function MyPostList() {

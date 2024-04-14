@@ -3,7 +3,7 @@ import { useContext, useState } from 'react'
 import { FilterContext, FilterContextType } from './FilterContextProvider'
 import { IPostFilter } from '@/interfaces/posts.interface'
 import { useRouter } from 'next/navigation'
-import { PATH_ROUTER } from '@/constants/route.constant'
+import { PATH_ROUTER } from '@/common/constants/route.constant'
 
 export default function SearchBar() {
   const router = useRouter()
