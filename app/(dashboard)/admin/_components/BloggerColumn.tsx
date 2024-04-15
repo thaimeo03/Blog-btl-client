@@ -33,6 +33,7 @@ export const columns: ColumnDef<IUserInfoForAdmin>[] = [
   },
   {
     id: 'actions',
+    header: 'Actions',
     cell: ({ row }) => {
       const blogger = row.original
 

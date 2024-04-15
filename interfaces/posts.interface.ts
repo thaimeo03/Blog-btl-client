@@ -47,6 +47,12 @@ interface IPostWithAuthor extends IPostItem {
 
 export type IGetPostByIdSuccess = DataResponse<IPostWithAuthor>
 
-export interface IBlogInfoForAdmin extends Pick<IPostWithAuthor, 'id' | 'title' | 'status' | 'createdAt'> {
-  blogger: Pick<IUser, 'id' | 'name' | 'avatar'>
+export interface IBlogsForAdminFilter {
+  limit: number
+  page: number
+  status?: BLOG_STATUS
 }
+
+export interface IBlogInfoForAdmin extends Pick<IPostWithAuthor, 'id' | 'title' | 'status' | 'createdAt'> {}
+
+export type IGetAllBlogsForAdminResponse = DataResponseWithPagination<IBlogInfoForAdmin[]>

@@ -1,6 +1,7 @@
 'use client'
 
 import { BLOG_STATUS, ROLE } from '@/common/constants/role.constant'
+import { PATH_ROUTER } from '@/common/constants/route.constant'
 import { Button } from '@/components/ui/button'
 import { IBlogInfoForAdmin } from '@/interfaces/posts.interface'
 import {
@@ -12,7 +13,8 @@ import {
   DropdownMenuTrigger
 } from '@radix-ui/react-dropdown-menu'
 import { ColumnDef } from '@tanstack/react-table'
-import { Check, MoreHorizontal } from 'lucide-react'
+import { Check, Eye, MoreHorizontal } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 export const columns: ColumnDef<IBlogInfoForAdmin>[] = [
   {
@@ -31,11 +33,30 @@ export const columns: ColumnDef<IBlogInfoForAdmin>[] = [
     accessorKey: 'createdAt',
     header: 'Created at'
   },
-  // {
-  //   id: ''
-  // },
   {
     id: 'actions',
+    header: 'View',
+    cell: ({ row }) => {
+      const router = useRouter()
+      const blog = row.original
+
+      const handleClick = () => {
+        router.push(`${PATH_ROUTER.POST}/${blog.id}`)
+      }
+
+      return (
+        <div
+          onClick={handleClick}
+          className='flex justify-center cursor-pointer hover:scale-125 hover:text-blue-400 p-2'
+        >
+          <Eye size={18} />
+        </div>
+      )
+    }
+  },
+  {
+    id: 'actions',
+    header: 'Actions',
     cell: ({ row }) => {
       const blog = row.original
 
