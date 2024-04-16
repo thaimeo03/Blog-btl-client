@@ -14,6 +14,7 @@ import { getErrorFromResponse } from '@/lib/utils'
 import { uploadImageApi } from '@/apis/medias.api'
 import { ICreatePostForm, ICreatePostSuccess, IGetPostByIdSuccess, IUpdatePostForm } from '@/interfaces/posts.interface'
 import Spinner from '@/components/Spinner'
+import ContentSuggestion from './ContentSuggestion'
 
 interface PostSideFeatureProps {
   isUpdate?: boolean
@@ -38,6 +39,7 @@ export default function PostSideFeature({ isUpdate, id, post, setIsOpen }: PostS
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors }
   } = useForm<IPostData>({
     resolver: yupResolver(ICreatePostSchema),
@@ -133,7 +135,10 @@ export default function PostSideFeature({ isUpdate, id, post, setIsOpen }: PostS
         </div>
       </div>
       <div className='mt-5'>
-        <h2 className='font-bold'>Content</h2>
+        <div className='flex space-x-3 mb-5'>
+          <h2 className='font-bold'>Content</h2>
+          <ContentSuggestion title={watch('title')} setContent={setContent} />
+        </div>
         <Editor content={content} setContent={setContent} />
       </div>
       <div className='flex justify-end'>
