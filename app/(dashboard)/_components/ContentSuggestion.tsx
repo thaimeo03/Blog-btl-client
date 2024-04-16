@@ -4,6 +4,7 @@ import { sendMessageGeminiApi } from '@/apis/gemini.api'
 import { Button } from '@/components/ui/button'
 import { IGeminiContent } from '@/interfaces/gemini.interface'
 import { useMutation } from '@tanstack/react-query'
+import { marked } from 'marked'
 
 interface ContentSuggestionProps {
   title: string
@@ -27,7 +28,15 @@ export default function ContentSuggestion({ title, setContent }: ContentSuggesti
   const generateSuggestionMutation = useMutation({
     mutationFn: () => sendMessageGeminiApi(geminiBlogContent),
     onSuccess: (data) => {
-      setContent(data.candidates[0].content.parts[0].text)
+      const rawContent = data.candidates[0].content.parts[0].text
+
+      // const contentFormatted = formatContent(rawContent)
+      const contentFormatted = marked.parse(rawContent, {
+        breaks: true,
+        gfm: true
+      })
+
+      setContent(contentFormatted as string)
     }
   })
 
