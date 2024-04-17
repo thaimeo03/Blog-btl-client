@@ -1,6 +1,7 @@
 'use client'
 
 import { sendMessageGeminiApi } from '@/apis/gemini.api'
+import Spinner from '@/components/Spinner'
 import { Button } from '@/components/ui/button'
 import { IGeminiContent } from '@/interfaces/gemini.interface'
 import { useMutation } from '@tanstack/react-query'
@@ -47,8 +48,14 @@ export default function ContentSuggestion({ title, setContent }: ContentSuggesti
   }
 
   return (
-    <Button onClick={handleClick} type='button' className='text-xs bg-blue-600 p-0 h-[30px] px-2 hover:bg-blue-900'>
-      Suggest content
+    <Button
+      onClick={handleClick}
+      type='button'
+      disabled={generateSuggestionMutation.isPending}
+      className='flex space-x-1 text-xs bg-blue-600 p-0 h-[30px] px-2 hover:bg-blue-900'
+    >
+      {generateSuggestionMutation.isPending && <Spinner className='w-4 h-4' />}
+      <span>Suggest content</span>
     </Button>
   )
 }

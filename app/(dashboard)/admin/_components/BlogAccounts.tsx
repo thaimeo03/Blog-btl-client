@@ -48,7 +48,7 @@ export default function BlogAccounts() {
         <DataTable columns={columns} data={data?.data || []} />
         <Button
           onClick={handleSeeMore}
-          className='mt-5 bg-transparent border border-neutral-800 text-black hover:text-white'
+          className='mt-5 bg-transparent border border-neutral-800 text-black hover:text-white dark:text-white dark:hover:text-black'
         >
           See More ...
         </Button>

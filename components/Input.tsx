@@ -1,10 +1,10 @@
-import { twMerge } from 'tailwind-merge'
+import { ClassNameValue, twMerge } from 'tailwind-merge'
 import { UseFormRegisterReturn, FieldError, Merge, FieldErrorsImpl } from 'react-hook-form'
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   register?: UseFormRegisterReturn<any>
   errors?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>
-  classCustom?: string
+  classCustom?: ClassNameValue
 }
 
 export default function Input({ classCustom, register, errors, ...rest }: InputProps) {

@@ -64,7 +64,7 @@ export default function Pagination<T>({ pagination, filters }: PaginationProps<T
         <li>
           <form onSubmit={handleGoToPage}>
             <input
-              className='h-8 leading-tight w-[90px] outline:none border px-2'
+              className='h-8 leading-tight w-[90px] outline:none border px-2 dark:text-black dark:bg-white'
               placeholder='Go to page'
               onChange={handleChangeInput}
               value={toPage}

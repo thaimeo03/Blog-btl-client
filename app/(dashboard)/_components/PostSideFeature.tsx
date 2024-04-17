@@ -112,13 +112,21 @@ export default function PostSideFeature({ isUpdate, id, post, setIsOpen }: PostS
     }
   }
 
+  console.log(watch('thumbnail'))
+
   return (
     <form onSubmit={handleSubmit(handleSubmitForm)}>
       <div>
         <label htmlFor='title' className='font-bold'>
           Title
         </label>
-        <Input id='title' type='text' register={register('title')} errors={errors?.title} />
+        <Input
+          id='title'
+          type='text'
+          register={register('title')}
+          errors={errors?.title}
+          classCustom='dark:bg-transparent dark:focus:bg-transparent dark:text-white'
+        />
       </div>
       <div className='mt-5'>
         <label htmlFor='thumbnail' className='font-bold'>
@@ -132,6 +140,11 @@ export default function PostSideFeature({ isUpdate, id, post, setIsOpen }: PostS
             register={register('thumbnail')}
             errors={errors?.thumbnail}
           />
+          {watch('thumbnail') && (
+            <div className='mt-2'>
+              <img src={URL.createObjectURL(watch('thumbnail')[0])} alt='thumbnail' />
+            </div>
+          )}
         </div>
       </div>
       <div className='mt-5'>
@@ -141,8 +154,8 @@ export default function PostSideFeature({ isUpdate, id, post, setIsOpen }: PostS
         </div>
         <Editor content={content} setContent={setContent} />
       </div>
-      <div className='flex justify-end'>
-        <Button variant='outline' className='border-emerald-500 hover:bg-emerald-500 mt-3'>
+      <div className='flex justify-start'>
+        <Button variant='outline' className='border-emerald-500 hover:bg-emerald-500 hover:text-white mt-3'>
           <div className='flex items-center space-x-1'>
             {createPostMutation.isPending ||
               (updatePostMutation.isPending && <Spinner className='animate-spin w-4 h-4' />)}

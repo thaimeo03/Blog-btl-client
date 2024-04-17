@@ -5,6 +5,8 @@ import { FilterContext, FilterContextType } from './FilterContextProvider'
 import { IPostFilter } from '@/interfaces/posts.interface'
 import { postFiltersInitialValue } from '@/common/constants/defaultValues.constant'
 import { PATH_ROUTER } from '@/common/constants/route.constant'
+import Image from 'next/image'
+import blogLogo from '@/public/logo/blog-logo.png'
 
 export default function Logo() {
   const router = useRouter()
@@ -18,8 +20,7 @@ export default function Logo() {
 
   return (
     <button onClick={handleClick} type='button' className='flex mr-4'>
-      <img src='https://flowbite.s3.amazonaws.com/logo.svg' className='mr-3 h-8' alt='FlowBite Logo' />
-      <span className='self-center text-2xl font-semibold whitespace-nowrap dark:text-white'>Flowbite</span>
+      <Image src={blogLogo} className='mr-3 w-40 h-16 object-cover' alt='Logo' />
     </button>
   )
 }

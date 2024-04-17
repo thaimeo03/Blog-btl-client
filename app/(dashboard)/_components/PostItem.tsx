@@ -42,12 +42,12 @@ export default function PostItem({ blog }: BlogItemProps) {
             <Avatar src={blog.blogger.avatar} />
           </div>
           <div className='ml-3'>
-            <span className='block text-gray-900'>{blog.blogger.name}</span>
-            <span className='block text-gray-400 text-sm'>{formatDateFromISO(blog.createdAt)}</span>
+            <span className='block text-gray-900 dark:text-white'>{blog.blogger.name}</span>
+            <span className='block text-gray-400 dark:text-white text-sm'>{formatDateFromISO(blog.createdAt)}</span>
           </div>
         </div>
         <div className='pt-3 ml-4 mr-2 mb-3'>
-          <h3 className='text-xl text-gray-900'>{blog.title}</h3>
+          <h3 className='text-xl text-gray-900 dark:text-white'>{blog.title}</h3>
         </div>
       </Link>
     </article>

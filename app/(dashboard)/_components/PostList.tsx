@@ -19,15 +19,17 @@ export default function PostList() {
 
   return (
     <div>
-      <section className='mt-12 mx-auto px-4 max-w-screen-xl md:px-8'>
+      <section className='mt-8 mx-auto px-4 max-w-screen-xl md:px-8'>
         <div className='text-center'>
-          <h1 className='text-3xl text-gray-800 font-semibold'>Blog</h1>
-          <p className='mt-3 text-gray-500'>Blogs that are loved by the community. Updated every hour.</p>
+          <h1 className='text-3xl text-gray-800 font-semibold dark:text-white'>Blog</h1>
+          <p className='mt-3 text-gray-500 dark:text-white'>
+            Blogs that are loved by the community. Updated every hour.
+          </p>
         </div>
         {isFetching ? (
           <Skeleton className='max-w-screen-lg' />
         ) : (
-          <div className='mt-12 grid gap-2 sm:grid-cols-2 lg:grid-cols-3'>
+          <div className='mt-5 grid gap-2 sm:grid-cols-2 lg:grid-cols-3'>
             {posts?.data && posts.data.map((items) => <PostItem key={items.id} blog={items} />)}
           </div>
         )}
