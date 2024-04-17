@@ -35,7 +35,7 @@ export default function ApproveBlogSide() {
   }
 
   const handleSeeMore = () => {
-    setFilter({ ...filters, limit: filters.limit + blogsFiltersInitialValue.limit })
+    setFilter({ ...filters, limit: (filters.limit as number) + (blogsFiltersInitialValue.limit as number) })
   }
 
   const dataFormatted = data?.data.map((blog) => {

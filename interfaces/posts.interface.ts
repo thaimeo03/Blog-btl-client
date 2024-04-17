@@ -48,8 +48,8 @@ interface IPostWithAuthor extends IPostItem {
 export type IGetPostByIdSuccess = DataResponse<IPostWithAuthor>
 
 export interface IBlogsForAdminFilter {
-  limit: number
-  page: number
+  limit?: number
+  page?: number
   status?: BLOG_STATUS
 }
 
