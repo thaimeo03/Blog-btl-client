@@ -6,7 +6,7 @@ export default function Admin() {
   return (
     <div className='min-h-screen'>
       <Charts />
-      <div className='grid grid-cols-2 mt-8'>
+      <div className='grid grid-cols-2 mt-10'>
         <div className='col-span-1 border-r-2 border-blue-500 pt-4 pr-4'>
           <ApproveBlogSide />
         </div>

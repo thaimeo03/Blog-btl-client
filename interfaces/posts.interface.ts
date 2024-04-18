@@ -56,3 +56,25 @@ export interface IBlogsForAdminFilter {
 export interface IBlogInfoForAdmin extends Pick<IPostWithAuthor, 'id' | 'title' | 'status' | 'createdAt'> {}
 
 export type IGetAllBlogsForAdminResponse = DataResponseWithPagination<IBlogInfoForAdmin[]>
+
+export interface IBlogsQuantityAnalytics {
+  rejectedBlogs: number
+  acceptedBlogs: number
+  pendingBlogs: number
+}
+
+export type IBlogsQuantityAnalyticsResponse = DataResponse<IBlogsQuantityAnalytics>
+
+export interface IBloggersQuantityAnalytics {
+  blogsQuantityInLastWeek: {
+    monday: number
+    tuesday: number
+    wednesday: number
+    thursday: number
+    friday: number
+    saturday: number
+    sunday: number
+  }
+}
+
+export type IBloggersQuantityAnalyticsResponse = DataResponse<IBloggersQuantityAnalytics>
