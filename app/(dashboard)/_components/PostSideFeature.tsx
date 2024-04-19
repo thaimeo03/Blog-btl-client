@@ -94,16 +94,17 @@ export default function PostSideFeature({ isUpdate, id, post, setIsOpen }: PostS
       if (!isUpdate) {
         setContent('')
         reset()
+        queryClient.invalidateQueries({ queryKey: ['posts'] }) // Invalidate posts query
+      } else {
+        queryClient.invalidateQueries({ queryKey: ['my-posts'] }) // Invalidate posts query
       }
+
       // Show toast
       toast({
         title: postResponse.message as string
       })
       // Close dialog
       setIsOpen(false)
-
-      // Reload page
-      queryClient.invalidateQueries({ queryKey: ['posts'] })
     } catch (error: any | ErrorResponse) {
       toast({
         title: getErrorFromResponse(error),
@@ -161,8 +162,9 @@ export default function PostSideFeature({ isUpdate, id, post, setIsOpen }: PostS
       <div className='flex justify-start'>
         <Button variant='outline' className='border-emerald-500 hover:bg-emerald-500 hover:text-white mt-3'>
           <div className='flex items-center space-x-1'>
-            {createPostMutation.isPending ||
-              (updatePostMutation.isPending && <Spinner className='animate-spin w-4 h-4' />)}
+            {(createPostMutation.isPending || updatePostMutation.isPending) && (
+              <Spinner className='animate-spin w-4 h-4' />
+            )}
             <span>{isUpdate ? 'Update' : 'Create'}</span>
           </div>
         </Button>

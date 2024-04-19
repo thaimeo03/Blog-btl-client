@@ -68,6 +68,7 @@ export const columns: ColumnDef<IBlogInfoForAdmin>[] = [
         mutationFn: (data: IChangeBlogStatus) => changeBlogStatus(data),
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ['blogs_admin'] })
+          queryClient.invalidateQueries({ queryKey: ['blogs_pie_chart'] })
         }
       })
 

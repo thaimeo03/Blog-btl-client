@@ -55,3 +55,8 @@ export interface IBloggerFilter {
   page: number
   searchNameTerm?: string
 }
+
+export interface IChangeRole {
+  id: string
+  role: ROLE
+}

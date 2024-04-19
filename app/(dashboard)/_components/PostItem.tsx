@@ -12,7 +12,7 @@ export default function PostItem({ blog }: BlogItemProps) {
   return (
     <article
       title='Detail post'
-      className='relative w-full max-w-md mx-auto mt-4 shadow-lg border rounded-md duration-300 hover:shadow-sm'
+      className='relative w-full max-w-md min-h-[338px] mx-auto mt-4 shadow-lg border rounded-md duration-300 hover:shadow-sm'
     >
       <Link href={`${PATH_ROUTER.POST}/${blog.id}`}>
         <div className='overflow-hidden rounded-t-md'>
@@ -47,7 +47,7 @@ export default function PostItem({ blog }: BlogItemProps) {
           </div>
         </div>
         <div className='pt-3 ml-4 mr-2 mb-3'>
-          <h3 className='text-xl text-gray-900 dark:text-white'>{blog.title}</h3>
+          <h3 className='text-xl text-gray-900 dark:text-white line-clamp-2'>{blog.title}</h3>
         </div>
       </Link>
     </article>

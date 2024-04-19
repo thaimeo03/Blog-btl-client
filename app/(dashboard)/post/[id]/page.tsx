@@ -56,7 +56,7 @@ export default function PostDetail({ params }: { params: { id: string } }) {
               </div>
             </div>
             <div className='px-4 lg:px-0 mt-10 text-gray-700 max-w-screen-md mx-auto text-lg leading-relaxed'>
-              <div dangerouslySetInnerHTML={{ __html: post.data.content }}></div>
+              <div className='dark:text-white' dangerouslySetInnerHTML={{ __html: post.data.content }}></div>
             </div>
           </>
         )}

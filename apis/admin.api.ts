@@ -6,7 +6,7 @@ import {
   IGetAllBlogsForAdminResponse
 } from '@/interfaces/posts.interface'
 import api, { URL } from './api'
-import { IBloggerFilter, IUserInfoForAdminResponse } from '@/interfaces/users.interface'
+import { IBloggerFilter, IChangeRole, IUserInfoForAdminResponse } from '@/interfaces/users.interface'
 import { convertObjToQueryString } from '@/lib/utils'
 import { MessageResponse } from '@/interfaces/response.interface'
 import { BLOG_STATUS } from '@/common/constants/role.constant'
@@ -29,6 +29,13 @@ export const getAllBlogsForAdminApi = async (blogsForAdminFilters: IBlogsForAdmi
 
 export const changeBlogStatus = async ({ id, status }: IChangeBlogStatus) => {
   const res = await api.patch<MessageResponse>(`${URL}/admin/blogs/${id}`, { status })
+
+  return res.data
+}
+
+export const changeRole = async ({ id, role }: IChangeRole) => {
+  const res = await api.patch<MessageResponse>(`${URL}/admin/bloggers/${id}`, { role })
+
   return res.data
 }
 

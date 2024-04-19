@@ -50,7 +50,7 @@ export default function UserNavigation() {
         >
           <span className='sr-only'>Open user menu</span>
           {auth.profile.avatar ? (
-            <img className='w-9 h-9 rounded-full' src={auth.profile.avatar} alt='user photo' />
+            <img className='w-9 h-9 rounded-full object-cover' src={auth.profile.avatar} alt='user photo' />
           ) : (
             <FaRegUserCircle size={36} color='white' />
           )}
@@ -78,7 +78,7 @@ export default function UserNavigation() {
                 href={PATH_ROUTER.MY_POSTS}
                 className='block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white'
               >
-                My posts
+                My blogs
               </Link>
             </li>
             <li className='cursor-pointer'>

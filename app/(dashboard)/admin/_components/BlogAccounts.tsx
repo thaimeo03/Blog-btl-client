@@ -32,7 +32,6 @@ export default function BlogAccounts() {
       ...bloggerFilters,
       searchNameTerm: searchTermName
     })
-    setSearchTermName('')
   }
 
   return (
