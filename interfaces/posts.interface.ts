@@ -78,3 +78,8 @@ export interface IBloggersQuantityAnalytics {
 }
 
 export type IBloggersQuantityAnalyticsResponse = DataResponse<IBloggersQuantityAnalytics>
+
+export interface IChangeBlogStatus {
+  id: string
+  status: BLOG_STATUS
+}

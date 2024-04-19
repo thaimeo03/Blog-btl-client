@@ -10,6 +10,7 @@ import CardWithConfig from '@/components/CardWithConfig'
 import BreadCrumb from '@/components/BreadCrumb'
 import { PATH_ROUTER } from '@/common/constants/route.constant'
 import PopoverPostConfig from './PopoverPostConfig'
+import { BLOG_STATUS } from '@/common/constants/role.constant'
 
 export default function MyPostList() {
   const { myPostFilters } = useContext(FilterContext) as FilterContextType<IPostFilter>
@@ -34,6 +35,13 @@ export default function MyPostList() {
             {posts?.data &&
               posts.data.map((items) => (
                 <div className='relative' key={items.id}>
+                  {items.status !== BLOG_STATUS.ACCEPTED && (
+                    <div className='absolute translate-y-[calc(100%-8px)] top-2 left-2 z-10'>
+                      <span className='px-2 py-1 bg-black opacity-50 text-white text-xs select-none'>
+                        {items.status}
+                      </span>
+                    </div>
+                  )}
                   <CardWithConfig>
                     <PopoverPostConfig id={items.id} />
                   </CardWithConfig>

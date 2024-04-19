@@ -1,9 +1,10 @@
 'use client'
 
+import { changeBlogStatus } from '@/apis/admin.api'
 import { BLOG_STATUS, ROLE } from '@/common/constants/role.constant'
 import { PATH_ROUTER } from '@/common/constants/route.constant'
 import { Button } from '@/components/ui/button'
-import { IBlogInfoForAdmin } from '@/interfaces/posts.interface'
+import { IBlogInfoForAdmin, IChangeBlogStatus } from '@/interfaces/posts.interface'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,6 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@radix-ui/react-dropdown-menu'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { ColumnDef } from '@tanstack/react-table'
 import { Check, Eye, MoreHorizontal } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -60,6 +62,19 @@ export const columns: ColumnDef<IBlogInfoForAdmin>[] = [
     cell: ({ row }) => {
       const blog = row.original
 
+      const queryClient = useQueryClient()
+
+      const changeBlogStatusMutation = useMutation({
+        mutationFn: (data: IChangeBlogStatus) => changeBlogStatus(data),
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['blogs_admin'] })
+        }
+      })
+
+      const handleStatusClick = (data: { id: string; status: BLOG_STATUS }) => {
+        changeBlogStatusMutation.mutate(data)
+      }
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -69,15 +84,24 @@ export const columns: ColumnDef<IBlogInfoForAdmin>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className='bg-popover border border-red-600 p-2' align='end'>
-            <DropdownMenuItem className='my-2 cursor-pointer flex items-center space-x-1 justify-center'>
+            <DropdownMenuItem
+              onClick={() => handleStatusClick({ id: blog.id, status: BLOG_STATUS.PENDING })}
+              className='my-2 cursor-pointer flex items-center space-x-1 justify-center'
+            >
               {blog.status === BLOG_STATUS.PENDING && <Check size={16} />}
               <span>Pending</span>
             </DropdownMenuItem>
-            <DropdownMenuItem className='my-2 cursor-pointer flex items-center space-x-1 justify-center'>
+            <DropdownMenuItem
+              onClick={() => handleStatusClick({ id: blog.id, status: BLOG_STATUS.ACCEPTED })}
+              className='my-2 cursor-pointer flex items-center space-x-1 justify-center'
+            >
               {blog.status === BLOG_STATUS.ACCEPTED && <Check size={16} />}
               <span>Accept</span>
             </DropdownMenuItem>
-            <DropdownMenuItem className='my-2 cursor-pointer flex items-center space-x-1 justify-center'>
+            <DropdownMenuItem
+              onClick={() => handleStatusClick({ id: blog.id, status: BLOG_STATUS.REJECTED })}
+              className='my-2 cursor-pointer flex items-center space-x-1 justify-center'
+            >
               {blog.status === BLOG_STATUS.REJECTED && <Check size={16} />}
               <span>Reject</span>
             </DropdownMenuItem>
