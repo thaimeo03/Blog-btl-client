@@ -67,6 +67,10 @@ export default function PostSideFeature({ isUpdate, id, post, setIsOpen }: PostS
     mutationFn: ({ id, data }: { id: string; data: IUpdatePostForm }) => updatePostApi({ id, data })
   })
 
+  const checkPending = () => {
+    return createPostMutation.isPending || updatePostMutation.isPending || uploadImageMutation.isPending
+  }
+
   const handleSubmitForm = async (data: IPostData) => {
     try {
       // Upload image before create post
@@ -160,11 +164,13 @@ export default function PostSideFeature({ isUpdate, id, post, setIsOpen }: PostS
         <Editor content={content} setContent={setContent} />
       </div>
       <div className='flex justify-start'>
-        <Button variant='outline' className='border-emerald-500 hover:bg-emerald-500 hover:text-white mt-3'>
+        <Button
+          variant='outline'
+          disabled={checkPending()}
+          className='border-emerald-500 hover:bg-emerald-500 hover:text-white mt-3'
+        >
           <div className='flex items-center space-x-1'>
-            {(createPostMutation.isPending || updatePostMutation.isPending) && (
-              <Spinner className='animate-spin w-4 h-4' />
-            )}
+            {checkPending() && <Spinner className='animate-spin w-4 h-4' />}
             <span>{isUpdate ? 'Update' : 'Create'}</span>
           </div>
         </Button>
