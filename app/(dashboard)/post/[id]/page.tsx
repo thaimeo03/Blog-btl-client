@@ -1,24 +1,73 @@
 'use client'
-import { getPostByIdApi } from '@/apis/posts.api'
+import { deletePostApi, getPostByIdApi } from '@/apis/posts.api'
 import Avatar from '@/components/Avatar'
 import BreadCrumb from '@/components/BreadCrumb'
 import Skeleton from '@/components/ui/Skeleton'
 import { PATH_ROUTER } from '@/common/constants/route.constant'
-import { formatDateFromISO } from '@/lib/utils'
-import { useQuery } from '@tanstack/react-query'
+import { formatDateFromISO, getErrorFromResponse } from '@/lib/utils'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import CommentSide from '../components/CommentSide'
 import { useContext } from 'react'
 import { AuthContext, AuthContextType } from '@/app/(auth)/_components/AuthContextProvider'
-import { ROLE } from '@/common/constants/role.constant'
+import { BLOG_STATUS, ROLE } from '@/common/constants/role.constant'
 import { Button } from '@/components/ui/button'
+import { IChangeBlogStatus } from '@/interfaces/posts.interface'
+import { changeBlogStatus } from '@/apis/admin.api'
+import { toast } from '@/components/ui/use-toast'
+import { ErrorResponse } from '@/interfaces/response.interface'
+import { useRouter } from 'next/navigation'
 
 export default function PostDetail({ params }: { params: { id: string } }) {
+  const router = useRouter()
+
   const { auth } = useContext(AuthContext) as AuthContextType
 
   const { data: post, isFetching } = useQuery({
     queryKey: ['post'],
     queryFn: () => getPostByIdApi(params.id)
   })
+
+  const hideBlogMutation = useMutation({
+    mutationFn: (data: IChangeBlogStatus) => changeBlogStatus(data),
+    onSuccess: () => {
+      toast({
+        title: 'Success',
+        description: 'Hide blog successfully'
+      })
+    },
+    onError: (error: ErrorResponse) => {
+      toast({
+        title: getErrorFromResponse(error),
+        variant: 'destructive'
+      })
+    }
+  })
+
+  const deleteBlogMutation = useMutation({
+    mutationFn: (id: string) => deletePostApi(id),
+    onSuccess: () => {
+      toast({
+        title: 'Success',
+        description: 'Delete blog successfully'
+      })
+
+      router.push(PATH_ROUTER.HOME)
+    },
+    onError: (error: ErrorResponse) => {
+      toast({
+        title: getErrorFromResponse(error),
+        variant: 'destructive'
+      })
+    }
+  })
+
+  const handleHideBlog = () => {
+    hideBlogMutation.mutate({ id: params.id, status: BLOG_STATUS.PENDING })
+  }
+
+  const handleDeleteBlog = () => {
+    deleteBlogMutation.mutate(params.id)
+  }
 
   return (
     <div className='max-w-screen-xl mx-auto'>
@@ -27,8 +76,12 @@ export default function PostDetail({ params }: { params: { id: string } }) {
       <main className='mt-10 relative'>
         {auth.profile.role === ROLE.ADMIN && (
           <div className='flex flex-col absolute right-0 top-0 gap-4'>
-            <Button variant={'outline'}>Hide blog</Button>
-            <Button variant={'destructive'}>Delete blog</Button>
+            <Button onClick={handleHideBlog} variant={'outline'}>
+              Hide blog
+            </Button>
+            <Button onClick={handleDeleteBlog} variant={'destructive'}>
+              Delete blog
+            </Button>
           </div>
         )}
 
