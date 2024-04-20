@@ -145,7 +145,7 @@ export default function PostSideFeature({ isUpdate, id, post, setIsOpen }: PostS
             register={register('thumbnail')}
             errors={errors?.thumbnail}
           />
-          {watch('thumbnail') ? (
+          {watch('thumbnail') && watch('thumbnail')[0] ? (
             <div className='mt-2'>
               <img src={URL.createObjectURL(watch('thumbnail')[0])} alt='thumbnail' />
             </div>
