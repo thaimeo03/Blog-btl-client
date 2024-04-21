@@ -12,7 +12,7 @@ export default function Editor({ content, setContent }: EditorProps) {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'], // toggled buttons
       ['blockquote', 'code-block'],
-      ['link', 'image'],
+      ['link', 'image', 'video'],
 
       [{ header: 1 }, { header: 2 }], // custom button values
       [{ list: 'ordered' }, { list: 'bullet' }],
